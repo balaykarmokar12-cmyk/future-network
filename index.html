@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Future Network - Fiber Management Portal</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Login Section -->
+  <div id="loginScreen" class="login-wrapper">
+    <div class="login-card">
+      <div class="logo-box">
+        <div class="logo-text-main">FUTURE <span class="sub-net">Network</span></div>
+        <div class="logo-line-art">
+          <span class="line red"></span>
+          <span class="line green"></span>
+          <span class="line yellow"></span>
+        </div>
+        <div class="logo-tagline">A Brand of Fibernet Network</div>
+      </div>
+      <h2>System Management Login</h2>
+      <form id="loginForm">
+        <div class="input-group">
+          <label>Username</label>
+          <input type="text" id="loginUser" placeholder="Enter username" required />
+        </div>
+        <div class="input-group">
+          <label>Password</label>
+          <input type="password" id="loginPass" placeholder="Enter password" required />
+        </div>
+        <p id="loginError" class="error-msg"></p>
+        <button type="submit" class="btn-login">Login to Dashboard</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Main System Dashboard Panel -->
+  <div id="mainDashboard" class="dashboard-wrapper hidden">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="logo-box">
+          <div class="logo-text-main" style="font-size:20px;">FUTURE <span class="sub-net">Network</span></div>
+          <div class="logo-line-art">
+            <span class="line red"></span>
+            <span class="line green"></span>
+            <span class="line yellow"></span>
+          </div>
+          <div class="logo-tagline" style="font-size:9px;">A Brand of Fibernet Network</div>
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <button class="nav-item active" onclick="switchView('overviewTab')">📊 Overview Dashboard</button>
+        <button class="nav-item" onclick="switchView('networkTab')">🌐 Fiber & TJ Box Entry</button>
+        <button class="nav-item" onclick="switchView('customerTab')">👤 Add Customer</button>
+        <button class="nav-item" onclick="switchView('recordsTab')">📁 Database & Backup</button>
+      </nav>
+      <div class="sidebar-footer">
+        <button onclick="logout()" class="btn-logout">🔒 Logout Session</button>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="content-area">
+      <!-- Top Navbar -->
+      <header class="top-bar">
+        <h2>Fiber Management Portal</h2>
+        <div class="user-badge">Status: <span class="badge-online">Admin Active</span></div>
+      </header>
+
+      <!-- Section 1: Overview Dashboard -->
+      <section id="overviewTab" class="view-section active-view">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <h4>Total TJ Boxes</h4>
+            <p id="statTjCount">0</p>
+          </div>
+          <div class="stat-card">
+            <h4>Active Customers</h4>
+            <p id="statCustCount">0</p>
+          </div>
+          <div class="stat-card">
+            <h4>Registered Technicians</h4>
+            <p id="statTechCount">0</p>
+          </div>
+        </div>
+        <div class="welcome-box">
+          <h3>Welcome to Future Network Cloud Portal</h3>
+          <p>আপনার আইএসপি নেটওয়ার্কের ফাইবার লাইন, টিজে বক্স এবং কাস্টমার ডাটাবেজ এক জায়গা থেকেই সহজে পরিচালনা করুন।</p>
+        </div>
+      </section>
+
+      <!-- Section 2: Fiber & TJ Box Entry -->
+      <section id="networkTab" class="view-section">
+        <div class="card-header">
+          <h3>Add Fiber Cable & TJ Box Details</h3>
+        </div>
+        <form id="networkForm" class="form-grid">
+          <div class="form-group">
+            <label>Technician Name (কাজটি কে করেছেন?)</label>
+            <input type="text" id="techNameNet" placeholder="e.g., Rahim Ahmed" required />
+          </div>
+          <div class="form-group">
+            <label>Area / Location</label>
+            <input type="text" id="areaName" placeholder="e.g., Main Road, Ward 2" required />
+          </div>
+          <div class="form-group">
+            <label>Fiber Cable Details</label>
+            <input type="text" id="fiberName" placeholder="e.g., 12 Core Main Fiber" required />
+          </div>
+          <div class="form-group">
+            <label>Fiber Color / Code</label>
+            <input type="text" id="fiberCode" placeholder="e.g., Blue / Orange" required />
+          </div>
+          <div class="form-group">
+            <label>Cable Length (Meters)</label>
+            <input type="number" id="fiberMeters" placeholder="e.g., 350" required />
+          </div>
+          <div class="form-group">
+            <label>TJ Box / ODB ID & Location</label>
+            <input type="text" id="tjBoxId" placeholder="e.g., TJ-01 (Pole No: 12)" required />
+          </div>
+          <div class="form-group">
+            <label>Splitter Ratio</label>
+            <select id="splitterRatio" required>
+              <option value="1:4">1:4</option>
+              <option value="1:8" selected>1:8</option>
+              <option value="1:16">1:16</option>
+              <option value="1:32">1:32</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Input Optical Power (dBm)</label>
+            <input type="text" id="inputPower" placeholder="e.g., +2 dBm" required />
+          </div>
+          <div class="form-group">
+            <label>Output Port Power (dBm)</label>
+            <input type="text" id="outputPower" placeholder="e.g., -18 dBm to -22 dBm" required />
+          </div>
+          <button type="submit" class="btn-primary">Save Network Node</button>
+        </form>
+      </section>
+
+      <!-- Section 3: Add Customer -->
+      <section id="customerTab" class="view-section">
+        <div class="card-header">
+          <h3>Register New Customer</h3>
+        </div>
+        <form id="customerForm" class="form-grid">
+          <div class="form-group">
+            <label>Technician Name (সংযোগ কে দিয়েছেন?)</label>
+            <input type="text" id="techNameCust" placeholder="e.g., Sumon Hossain" required />
+          </div>
+          <div class="form-group">
+            <label>Customer Full Name</label>
+            <input type="text" id="custName" placeholder="e.g., Rahat Ahmed" required />
+          </div>
+          <div class="form-group">
+            <label>Mobile Number</label>
+            <input type="tel" id="custPhone" placeholder="e.g., 01700000000" required />
+          </div>
+          <div class="form-group">
+            <label>IP Address / Username</label>
+            <input type="text" id="custIp" placeholder="e.g., 192.168.10.15" required />
+          </div>
+          <div class="form-group">
+            <label>Internet Package</label>
+            <input type="text" id="custPackage" placeholder="e.g., 10 Mbps Standard" required />
+          </div>
+          <div class="form-group">
+            <label>Connected TJ Box & Port No</label>
+            <input type="text" id="custTjPort" placeholder="e.g., TJ-01, Port 3" required />
+          </div>
+          <div class="form-group">
+            <label>Optical Power at ONU (dBm)</label>
+            <input type="text" id="custDb" placeholder="e.g., -19 dBm" required />
+          </div>
+          <button type="submit" class="btn-primary">Add Customer</button>
+        </form>
+      </section>
+
+      <!-- Section 4: Records & Database -->
+      <section id="recordsTab" class="view-section">
+        <div class="card-header flex-between">
+          <h3>Network & Customer Records</h3>
+          <button onclick="exportCSV()" class="btn-backup">Download Backup (CSV)</button>
+        </div>
+
+        <div class="table-card">
+          <div class="table-title">
+            <h4>TJ Boxes & Fiber Network Nodes</h4>
+            <input type="text" id="searchNetwork" placeholder="Search TJ Box/Tech..." onkeyup="renderTables()" />
+          </div>
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Tech Name</th>
+                  <th>Area</th>
+                  <th>Fiber Code</th>
+                  <th>Length</th>
+                  <th>TJ Box / Loc</th>
+                  <th>Splitter</th>
+                  <th>In/Out Power</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="networkTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="table-card" style="margin-top: 25px;">
+          <div class="table-title">
+            <h4>Customer Database</h4>
+            <input type="text" id="searchCustomer" placeholder="Search Customer/Tech..." onkeyup="renderTables()" />
+          </div>
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Tech Name</th>
+                  <th>Customer Name</th>
+                  <th>Phone</th>
+                  <th>IP/User</th>
+                  <th>Package</th>
+                  <th>TJ Box & Port</th>
+                  <th>ONU dBm</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="customerTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <footer class="system-footer">
+        <p>&copy; 2026 Future Network | ISP Management Dashboard System</p>
+      </footer>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
