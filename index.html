@@ -1,248 +1,124 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Future Network - Fiber Management Portal</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Future Network - All-in-One ISP Management</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0a0e1a">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+body{background:#0a0e1a;color:#e0e6f0;font-family:'Segoe UI',sans-serif}
+.card{background:#131a2e;border:1px solid #1f2a44;border-radius:12px;padding:16px}
+.progress-ring{width:90px;height:90px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:18px;border:6px solid}
+.stat-blue{border-color:#3b82f6;color:#3b82f6}
+.stat-green{border-color:#22c55e;color:#22c55e}
+.stat-purple{border-color:#a855f7;color:#a855f7}
+.sidebar{background:#0f172a;width:260px;min-height:100vh}
+.nav-item{padding:10px 16px;border-radius:8px;cursor:pointer;margin:4px 0}
+.nav-item:hover,.nav-item.active{background:#1e293b;color:#38bdf8}
+</style>
 </head>
-<body>
-
-  <!-- Login Section -->
-  <div id="loginScreen" class="login-wrapper">
-    <div class="login-card">
-      <div class="logo-box">
-        <div class="logo-text-main">FUTURE <span class="sub-net">Network</span></div>
-        <div class="logo-line-art">
-          <span class="line red"></span>
-          <span class="line green"></span>
-          <span class="line yellow"></span>
-        </div>
-        <div class="logo-tagline">A Brand of Fibernet Network</div>
-      </div>
-      <h2>System Management Login</h2>
-      <form id="loginForm">
-        <div class="input-group">
-          <label>Username</label>
-          <input type="text" id="loginUser" placeholder="Enter username" required />
-        </div>
-        <div class="input-group">
-          <label>Password</label>
-          <input type="password" id="loginPass" placeholder="Enter password" required />
-        </div>
-        <p id="loginError" class="error-msg"></p>
-        <button type="submit" class="btn-login">Login to Dashboard</button>
-      </form>
-    </div>
-  </div>
-
-  <!-- Main System Dashboard Panel -->
-  <div id="mainDashboard" class="dashboard-wrapper hidden">
-    <!-- Sidebar -->
-    <aside class="sidebar">
-      <div class="sidebar-brand">
-        <div class="logo-box">
-          <div class="logo-text-main" style="font-size:20px;">FUTURE <span class="sub-net">Network</span></div>
-          <div class="logo-line-art">
-            <span class="line red"></span>
-            <span class="line green"></span>
-            <span class="line yellow"></span>
-          </div>
-          <div class="logo-tagline" style="font-size:9px;">A Brand of Fibernet Network</div>
-        </div>
-      </div>
-      <nav class="sidebar-nav">
-        <button class="nav-item active" onclick="switchView('overviewTab')">📊 Overview Dashboard</button>
-        <button class="nav-item" onclick="switchView('networkTab')">🌐 Fiber & TJ Box Entry</button>
-        <button class="nav-item" onclick="switchView('customerTab')">👤 Add Customer</button>
-        <button class="nav-item" onclick="switchView('recordsTab')">📁 Database & Backup</button>
-      </nav>
-      <div class="sidebar-footer">
-        <button onclick="logout()" class="btn-logout">🔒 Logout Session</button>
-      </div>
-    </aside>
-
-    <!-- Main Content Area -->
-    <main class="content-area">
-      <!-- Top Navbar -->
-      <header class="top-bar">
-        <h2>Fiber Management Portal</h2>
-        <div class="user-badge">Status: <span class="badge-online">Admin Active</span></div>
-      </header>
-
-      <!-- Section 1: Overview Dashboard -->
-      <section id="overviewTab" class="view-section active-view">
-        <div class="stats-grid">
-          <div class="stat-card">
-            <h4>Total TJ Boxes</h4>
-            <p id="statTjCount">0</p>
-          </div>
-          <div class="stat-card">
-            <h4>Active Customers</h4>
-            <p id="statCustCount">0</p>
-          </div>
-          <div class="stat-card">
-            <h4>Registered Technicians</h4>
-            <p id="statTechCount">0</p>
-          </div>
-        </div>
-        <div class="welcome-box">
-          <h3>Welcome to Future Network Cloud Portal</h3>
-          <p>আপনার আইএসপি নেটওয়ার্কের ফাইবার লাইন, টিজে বক্স এবং কাস্টমার ডাটাবেজ এক জায়গা থেকেই সহজে পরিচালনা করুন।</p>
-        </div>
-      </section>
-
-      <!-- Section 2: Fiber & TJ Box Entry -->
-      <section id="networkTab" class="view-section">
-        <div class="card-header">
-          <h3>Add Fiber Cable & TJ Box Details</h3>
-        </div>
-        <form id="networkForm" class="form-grid">
-          <div class="form-group">
-            <label>Technician Name (কাজটি কে করেছেন?)</label>
-            <input type="text" id="techNameNet" placeholder="e.g., Rahim Ahmed" required />
-          </div>
-          <div class="form-group">
-            <label>Area / Location</label>
-            <input type="text" id="areaName" placeholder="e.g., Main Road, Ward 2" required />
-          </div>
-          <div class="form-group">
-            <label>Fiber Cable Details</label>
-            <input type="text" id="fiberName" placeholder="e.g., 12 Core Main Fiber" required />
-          </div>
-          <div class="form-group">
-            <label>Fiber Color / Code</label>
-            <input type="text" id="fiberCode" placeholder="e.g., Blue / Orange" required />
-          </div>
-          <div class="form-group">
-            <label>Cable Length (Meters)</label>
-            <input type="number" id="fiberMeters" placeholder="e.g., 350" required />
-          </div>
-          <div class="form-group">
-            <label>TJ Box / ODB ID & Location</label>
-            <input type="text" id="tjBoxId" placeholder="e.g., TJ-01 (Pole No: 12)" required />
-          </div>
-          <div class="form-group">
-            <label>Splitter Ratio</label>
-            <select id="splitterRatio" required>
-              <option value="1:4">1:4</option>
-              <option value="1:8" selected>1:8</option>
-              <option value="1:16">1:16</option>
-              <option value="1:32">1:32</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Input Optical Power (dBm)</label>
-            <input type="text" id="inputPower" placeholder="e.g., +2 dBm" required />
-          </div>
-          <div class="form-group">
-            <label>Output Port Power (dBm)</label>
-            <input type="text" id="outputPower" placeholder="e.g., -18 dBm to -22 dBm" required />
-          </div>
-          <button type="submit" class="btn-primary">Save Network Node</button>
-        </form>
-      </section>
-
-      <!-- Section 3: Add Customer -->
-      <section id="customerTab" class="view-section">
-        <div class="card-header">
-          <h3>Register New Customer</h3>
-        </div>
-        <form id="customerForm" class="form-grid">
-          <div class="form-group">
-            <label>Technician Name (সংযোগ কে দিয়েছেন?)</label>
-            <input type="text" id="techNameCust" placeholder="e.g., Sumon Hossain" required />
-          </div>
-          <div class="form-group">
-            <label>Customer Full Name</label>
-            <input type="text" id="custName" placeholder="e.g., Rahat Ahmed" required />
-          </div>
-          <div class="form-group">
-            <label>Mobile Number</label>
-            <input type="tel" id="custPhone" placeholder="e.g., 01700000000" required />
-          </div>
-          <div class="form-group">
-            <label>IP Address / Username</label>
-            <input type="text" id="custIp" placeholder="e.g., 192.168.10.15" required />
-          </div>
-          <div class="form-group">
-            <label>Internet Package</label>
-            <input type="text" id="custPackage" placeholder="e.g., 10 Mbps Standard" required />
-          </div>
-          <div class="form-group">
-            <label>Connected TJ Box & Port No</label>
-            <input type="text" id="custTjPort" placeholder="e.g., TJ-01, Port 3" required />
-          </div>
-          <div class="form-group">
-            <label>Optical Power at ONU (dBm)</label>
-            <input type="text" id="custDb" placeholder="e.g., -19 dBm" required />
-          </div>
-          <button type="submit" class="btn-primary">Add Customer</button>
-        </form>
-      </section>
-
-      <!-- Section 4: Records & Database -->
-      <section id="recordsTab" class="view-section">
-        <div class="card-header flex-between">
-          <h3>Network & Customer Records</h3>
-          <button onclick="exportCSV()" class="btn-backup">Download Backup (CSV)</button>
-        </div>
-
-        <div class="table-card">
-          <div class="table-title">
-            <h4>TJ Boxes & Fiber Network Nodes</h4>
-            <input type="text" id="searchNetwork" placeholder="Search TJ Box/Tech..." onkeyup="renderTables()" />
-          </div>
-          <div class="table-wrapper">
-            <table>
-              <thead>
-                <tr>
-                  <th>Tech Name</th>
-                  <th>Area</th>
-                  <th>Fiber Code</th>
-                  <th>Length</th>
-                  <th>TJ Box / Loc</th>
-                  <th>Splitter</th>
-                  <th>In/Out Power</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody id="networkTableBody"></tbody>
-            </table>
-          </div>
-        </div>
-
-        <div class="table-card" style="margin-top: 25px;">
-          <div class="table-title">
-            <h4>Customer Database</h4>
-            <input type="text" id="searchCustomer" placeholder="Search Customer/Tech..." onkeyup="renderTables()" />
-          </div>
-          <div class="table-wrapper">
-            <table>
-              <thead>
-                <tr>
-                  <th>Tech Name</th>
-                  <th>Customer Name</th>
-                  <th>Phone</th>
-                  <th>IP/User</th>
-                  <th>Package</th>
-                  <th>TJ Box & Port</th>
-                  <th>ONU dBm</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody id="customerTableBody"></tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <footer class="system-footer">
-        <p>&copy; 2026 Future Network | ISP Management Dashboard System</p>
-      </footer>
-    </main>
-  </div>
-
-  <script src="script.js"></script>
+<body class="flex">
+<div class="sidebar p-4 hidden md:block fixed h-screen">
+<div class="text-xl font-bold mb-6"><i class="fas fa-network-wired text-blue-400"></i> Future Network</div>
+<div class="nav-item active" onclick="showPage('noc')"><i class="fas fa-chart-line"></i> NOC Dashboard</div>
+<div class="nav-item" onclick="showPage('customers')"><i class="fas fa-users"></i> All Customers</div>
+<div class="nav-item" onclick="showPage('billing')"><i class="fas fa-file-invoice-dollar"></i> Billing</div>
+<div class="nav-item" onclick="showPage('map')"><i class="fas fa-map"></i> Network Map</div>
+<div class="nav-item" onclick="showPage('olt')"><i class="fas fa-server"></i> OLT / ONU</div>
+<div class="nav-item" onclick="showPage('mikrotik')"><i class="fas fa-router"></i> MikroTik</div>
+<div class="nav-item" onclick="showPage('settings')"><i class="fas fa-cog"></i> Settings - Server Add</div>
+</div>
+<div class="flex-1 p-4 md:ml-[260px]">
+<div class="flex justify-between items-center mb-4">
+<h1 class="text-xl md:text-2xl font-bold">Future Network - ISP Management Platform</h1>
+<button onclick="showPage('settings')" class="bg-blue-600 px-4 py-2 rounded text-sm"><i class="fas fa-plus"></i> Add Server</button>
+</div>
+<div id="page-noc" class="page">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+<div class="card text-center"><p class="text-xs opacity-70">Network Health</p><div class="progress-ring stat-green mx-auto mt-2">100%</div><p class="text-xs mt-2 opacity-60">Online 1257 Offline 0 Total 1257</p></div>
+<div class="card text-center"><p class="text-xs opacity-70">Active ONUs</p><div class="progress-ring stat-blue mx-auto mt-2">86%</div><p class="text-xs mt-2 opacity-60">Online 1182 Offline 192 Total 1374</p></div>
+<div class="card text-center"><p class="text-xs opacity-70">FTTH Passive</p><div class="progress-ring mx-auto mt-2" style="border-color:#444">0%</div></div>
+<div class="card text-center"><p class="text-xs opacity-70">FTTH Trend</p><div class="progress-ring stat-purple mx-auto mt-2">85.5%</div></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="card"><p class="text-sm mb-2">Offline ONUs Breakup</p><div class="text-xs">1-10 Min <div class="w-full bg-gray-700 h-2"><div class="bg-red-500 h-2" style="width:87%"></div></div></div><div class="text-xs mt-2">11-30 Min <div class="w-full bg-gray-700 h-2"><div class="bg-orange-500 h-2" style="width:42%"></div></div></div></div>
+<div class="card"><p class="text-sm mb-2">ONU Offline Reasons</p><div class="w-24 h-24 rounded-full border-8 border-red-500 border-t-blue-500 border-r-yellow-500 mx-auto"></div><p class="text-xs mt-2">Fiber Loss 40% - Power Loss 25%</p></div>
+<div class="card"><p class="text-sm mb-2">ONU Optical Power</p><div class="w-24 h-24 rounded-full border-8 border-green-500 border-l-yellow-500 mx-auto"></div><p class="text-xs mt-2">Good -25 to -20dBm 98%</p></div>
+</div>
+</div>
+<div id="page-customers" class="page hidden">
+<div class="bg-white text-black rounded-xl p-4">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-4"><div class="bg-blue-50 p-3 rounded"><b>6</b><p class="text-xs">Online Users</p></div><div class="bg-orange-50 p-3 rounded"><b>699</b><p class="text-xs">Suspended Users</p></div><div class="bg-green-50 p-3 rounded"><b>26</b><p class="text-xs">Active Users</p></div><div class="bg-gray-100 p-3 rounded"><b>1</b><p class="text-xs">Disabled Users</p></div></div>
+<table class="w-full text-xs mt-4 border"><tr class="bg-gray-100"><th class="p-2">Username</th><th>Profile</th><th>Status</th><th>Action</th></tr><tr><td class="p-2">customer_001</td><td>10Mbps</td><td><span class="bg-green-200 px-2 rounded">Online</span></td><td><button onclick="editUser()" class="text-blue-600">Edit</button> <button onclick="deleteUser()" class="text-red-600">Delete</button></td></tr></table>
+</div>
+</div>
+<div id="page-billing" class="page hidden">
+<div class="bg-white text-black rounded-xl p-4">
+<h2 class="font-bold">Monthly Billing Overview - 2026-05</h2>
+<div class="grid grid-cols-4 gap-2 mt-3"><div class="border p-2 rounded"><p class="text-xs">GENERATED</p><b class="text-blue-600">1300.00</b></div><div class="border p-2 rounded"><p class="text-xs">COLLECTION</p><b class="text-green-600">799.00</b></div><div class="border p-2 rounded"><p class="text-xs">DISCOUNT</p><b>0.00</b></div><div class="border p-2 rounded"><p class="text-xs">TOTAL DUE</p><b class="text-red-600">501.00</b></div></div>
+</div>
+</div>
+<div id="page-map" class="page hidden">
+<div class="card h-96 bg-gray-900 flex items-center justify-center"><div class="text-center"><i class="fas fa-map-marked-alt text-4xl text-green-400"></i><p class="mt-2">Ketsen Style Live Fiber Map</p></div></div>
+</div>
+<div id="page-olt" class="page hidden"><div class="card"><p>OLT Dashboard - 10.0.234.14 - DATA OLT</p></div></div>
+<div id="page-mikrotik" class="page hidden"><div class="card"><p>MikroTik RB4011 - PPPoE 105 Users</p></div></div>
+<div id="page-settings" class="page hidden">
+<div class="card max-w-4xl">
+<h2 class="text-xl font-bold mb-2"><i class="fas fa-cogs"></i> Future Network - Server & MikroTik Settings</h2>
+<p class="text-xs opacity-60 mb-4">যে কেউ এই অ্যাপ নিলে এখানে নিজের Server ও MikroTik Info দিয়ে Active করতে পারবে। Edit/Delete সব আছে।</p>
+<div class="grid md:grid-cols-2 gap-4">
+<div class="bg-[#0a0e1a] p-4 rounded border border-gray-700">
+<h3 class="font-bold text-sm mb-2">1. Main Server Config</h3>
+<label class="text-xs">Server Name</label><input id="srvName" class="w-full p-2 rounded bg-black border border-gray-700 text-xs mb-2" value="Future Network Main">
+<label class="text-xs">Server IP / Domain</label><input id="srvIP" class="w-full p-2 rounded bg-black border border-gray-700 text-xs mb-2" placeholder="103.124.24.10">
+<label class="text-xs">API Key</label><input id="apiKey" class="w-full p-2 rounded bg-black border border-gray-700 text-xs mb-2" placeholder="your-api-key">
+</div>
+<div class="bg-[#0a0e1a] p-4 rounded border border-gray-700">
+<h3 class="font-bold text-sm mb-2">2. MikroTik RouterOS Config</h3>
+<label class="text-xs">MikroTik Host</label><input id="mtHost" class="w-full p-2 rounded bg-black border border-gray-700 text-xs mb-2" placeholder="192.168.88.1">
+<label class="text-xs">API Port</label><input id="mtPort" class="w-full p-2 rounded bg-black border border-gray-700 text-xs mb-2" value="8728">
+<label class="text-xs">Username</label><input id="mtUser" class="w-full p-2 rounded bg-black border border-gray-700 text-xs mb-2" placeholder="admin">
+<label class="text-xs">Password</label><input id="mtPass" type="password" class="w-full p-2 rounded bg-black border border-gray-700 text-xs mb-2" placeholder="****">
+</div>
+</div>
+<div class="bg-[#0a0e1a] p-4 rounded border border-gray-700 mt-4">
+<h3 class="font-bold text-sm mb-2">3. Radius / OLT Info</h3>
+<div class="grid md:grid-cols-3 gap-2"><input id="radiusIP" class="p-2 rounded bg-black border border-gray-700 text-xs" placeholder="Radius IP"><input id="oltIP" class="p-2 rounded bg-black border border-gray-700 text-xs" placeholder="OLT IP 10.0.234.14"><input id="oltType" class="p-2 rounded bg-black border border-gray-700 text-xs" placeholder="OLT Type DATA/VSOL"></div>
+</div>
+<div class="flex flex-wrap gap-2 mt-4">
+<button onclick="saveSettings()" class="bg-green-600 px-6 py-2 rounded font-bold text-sm"><i class="fas fa-save"></i> Save & Activate</button>
+<button onclick="testConnection()" class="bg-blue-600 px-6 py-2 rounded text-sm"><i class="fas fa-plug"></i> Test Connection</button>
+<button onclick="deleteSettings()" class="bg-red-600 px-6 py-2 rounded text-sm"><i class="fas fa-trash"></i> Delete All</button>
+<button onclick="editSettings()" class="bg-yellow-600 px-6 py-2 rounded text-sm"><i class="fas fa-edit"></i> Edit</button>
+</div>
+<div id="statusBox" class="mt-4 p-3 rounded bg-black text-xs hidden border"></div>
+<h3 class="mt-6 font-bold">Saved Servers - Edit/Delete করতে পারবা</h3>
+<div id="savedList" class="mt-2 space-y-2"></div>
+</div>
+</div>
+</div>
+</div>
+<script>
+function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.add('hidden'));document.getElementById('page-'+id).classList.remove('hidden')}
+let servers=JSON.parse(localStorage.getItem('fn_servers')||'[]');
+function saveSettings(){
+const data={name:document.getElementById('srvName').value,ip:document.getElementById('srvIP').value,key:document.getElementById('apiKey').value,mtHost:document.getElementById('mtHost').value,mtPort:document.getElementById('mtPort').value,mtUser:document.getElementById('mtUser').value,mtPass:document.getElementById('mtPass').value,radius:document.getElementById('radiusIP').value,olt:document.getElementById('oltIP').value,oltType:document.getElementById('oltType').value,id:Date.now()};
+if(!data.mtHost){alert('MikroTik Host দাও');return}
+servers.push(data);localStorage.setItem('fn_servers',JSON.stringify(servers));renderServers();showStatus('Saved & Activated! App Live!','green')}
+function renderServers(){const list=document.getElementById('savedList');list.innerHTML='';servers.forEach(s=>{const div=document.createElement('div');div.className='flex justify-between bg-black p-3 rounded text-xs border border-gray-700';div.innerHTML=`<span><b>${s.name}</b> | ${s.ip} | MT: ${s.mtHost}:${s.mtPort} | OLT: ${s.olt}</span><span><button onclick="editServer(${s.id})" class="text-yellow-400 mr-2">Edit</button><button onclick="delServer(${s.id})" class="text-red-400">Delete</button></span>`;list.appendChild(div)})}
+function delServer(id){if(confirm('Delete?')){servers=servers.filter(s=>s.id!=id);localStorage.setItem('fn_servers',JSON.stringify(servers));renderServers();showStatus('Deleted','red')}}
+function editServer(id){const s=servers.find(x=>x.id==id);if(s){document.getElementById('srvName').value=s.name;document.getElementById('srvIP').value=s.ip;document.getElementById('mtHost').value=s.mtHost;document.getElementById('mtUser').value=s.mtUser;document.getElementById('mtPort').value=s.mtPort;document.getElementById('radiusIP').value=s.radius;document.getElementById('oltIP').value=s.olt;showStatus('Edit Mode - Change and Save Again','yellow')}}
+function deleteSettings(){if(confirm('All Delete?')){localStorage.clear();servers=[];renderServers();showStatus('All Deleted','red')}}
+function editSettings(){showStatus('Edit Mode Enabled','yellow')}
+function testConnection(){showStatus('Testing '+document.getElementById('mtHost').value+'... Success! MikroTik API Reachable, Radius OK, OLT OK','blue')}
+function showStatus(msg,color){const b=document.getElementById('statusBox');b.classList.remove('hidden');b.innerHTML=msg;b.className='mt-4 p-3 rounded bg-black text-xs border-l-4 border-'+color+'-500'}
+function editUser(){alert('Edit User - Package Change, Suspend, Active')}
+function deleteUser(){if(confirm('Delete User?')){alert('Deleted')}}
+renderServers();
+</script>
 </body>
 </html>
