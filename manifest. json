@@ -1,0 +1,15 @@
+{
+  "name": "Future Network",
+  "short_name": "FutureNet",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#0a0e1a",
+  "theme_color": "#0a0e1a",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/423/423096.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
